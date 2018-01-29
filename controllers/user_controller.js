@@ -1,9 +1,28 @@
 var User = require('../models/user')
+var express = require('express');
 
+exports.user_get = function(req, res) {
+    res.render("users/sign_in");
+};
+
+exports.user_post = function(req, res) {
+    User.findOne({'username': req.body.username},(err,user)=>{
+      if(user){
+        if(user.password==req.body.password &&
+        user.passwordConf==req.body.passwordConf){
+          req.session.userId = user._id
+          return res.redirect('/')
+        }
+        else{
+          return res.send("incorrect password")
+        }
+      }
+      res.send("username doesn't exist")
+    })
+};
 
 exports.user_create_get = function(req, res) {
-    console.log("yay")
-    res.render("users/sign_in");
+    res.render("users/sign_up");
 };
 
 exports.user_create_post = function(req, res) {
@@ -25,7 +44,8 @@ exports.user_create_post = function(req, res) {
         console.log(err)
         //res.send(err) //stand-in for error handling
       } else {
-        return res.redirect('/users');
+        req.session.userId = user._id;
+        return res.redirect('/');
       }
     });
   }
