@@ -1,7 +1,6 @@
 //Model for station information entries in MongoDB collection.
 
 let mongoose = require('mongoose');
-let connection = mongoose.createConnection('mongodb://localhost:27017/nightlife')
 
 var UserSchema = new mongoose.Schema({
   email: {
