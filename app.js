@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var jade = require('jade');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var session = require('express-session')
 var app = express();
 
 //let db = database;
@@ -21,6 +22,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', index);
 app.use('/users', users);
+
+// session middleware for tracking logins
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

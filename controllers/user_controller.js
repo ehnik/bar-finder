@@ -12,7 +12,6 @@ exports.user_create_post = function(req, res) {
         req.body.username &&
         req.body.password &&
         req.body.passwordConf) {
-          console.log("confirmed")
           var userData = {
             email: req.body.email,
             username: req.body.username,
@@ -26,9 +25,8 @@ exports.user_create_post = function(req, res) {
         console.log(err)
         //res.send(err) //stand-in for error handling
       } else {
-        return res.redirect('/usersss');
+        return res.redirect('/users');
       }
     });
   }
-    res.send(req.body)
 };
