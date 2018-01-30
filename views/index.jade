@@ -1,1 +1,18 @@
-<h1> Watering Holes Near You </h1>
+html
+    head
+    | <style type="text/css">
+    include ../public/stylesheets/bar_style.css
+    | </style>
+    body
+        <h1> Watering Holes Near You </h1>
+        <form method="post">
+        <input type="text" placeholder="Zip Code" name="zip" required>
+        <button type="submit">Submit</button>
+        </form>
+
+        if pageData.results.length>0
+        each item in pageData.results
+          h2 #{item.name}
+          <br>
+          <img src=#{item.image_url}>
+          <br>
